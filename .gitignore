@@ -8,6 +8,13 @@ gradle-app.setting
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
 
+java-example/build/
+geckodriver.log
+java-example/.gradle/
+
+.idea/workspace.xml
+.idea/runConfigurations/
+
 # Cache of project
 .gradletasknamecache
 .idea/misc.xml
@@ -15,3 +22,7 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+
+
+
+
