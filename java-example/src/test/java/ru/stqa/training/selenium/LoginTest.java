@@ -68,7 +68,7 @@ public class LoginTest {
         driver.quit();
     }       */
 
-
+        /*
     @Test
     public void firefoxOldSchemeTest() {
         FirefoxOptions options = new FirefoxOptions();
@@ -84,8 +84,24 @@ public class LoginTest {
         driver.findElement(By.name("login")).click();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.quit();
-    }
+    }       */
+  // C:\Program Files\Firefox Developer Edition
 
+    @Test
+    public void firefoxNightlyTest() {
+        FirefoxOptions options = new FirefoxOptions();
+        options.setBinary("c:/Program Files/Firefox Developer Edition/firefox.exe");
+        WebDriver driver = new FirefoxDriver(options);
+
+        driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+        driver.navigate().to("http://localhost/litecart/en/");
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.findElement(By.name("email")).sendKeys("damian.kowalik94@gmail.com");
+        driver.findElement(By.name("password")).sendKeys("damian");
+        driver.findElement(By.name("login")).click();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.quit();
+    }
 
 
 }
