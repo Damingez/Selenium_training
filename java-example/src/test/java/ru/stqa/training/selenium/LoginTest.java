@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class LoginTest {
 
 
-/*
+
     @Test
     public void chromeTest() {
 
@@ -26,14 +26,14 @@ public class LoginTest {
         System.out.println(((HasCapabilities) driver).getCapabilities());
 
 
-        driver.navigate().to("http://localhost/litecart/en/");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.findElement(By.name("email")).sendKeys("damian.kowalik94@gmail.com");
-        driver.findElement(By.name("password")).sendKeys("damian");
+        driver.navigate().to("http://localhost/litecart/admin/login.php");
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.quit();
-    }                       */
+    }
         /*
     @Test
     public void firefoxTest() {
@@ -41,10 +41,10 @@ public class LoginTest {
         options.setLegacy(false);
         WebDriver driver = new FirefoxDriver(options);
 
-        driver.navigate().to("http://localhost/litecart/en/");
+        driver.navigate().to("http://localhost/litecart/admin/login.php");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.findElement(By.name("email")).sendKeys("damian.kowalik94@gmail.com");
-        driver.findElement(By.name("password")).sendKeys("damian");
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.quit();
@@ -59,16 +59,16 @@ public class LoginTest {
         caps.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, true);
         WebDriver driver = new InternetExplorerDriver(caps);
 
-        driver.navigate().to("http://localhost/litecart/en/");
+         driver.navigate().to("http://localhost/litecart/admin/login.php");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.findElement(By.name("email")).sendKeys("damian.kowalik94@gmail.com");
-        driver.findElement(By.name("password")).sendKeys("damian");
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.quit();
     }       */
 
-        /*
+    /*
     @Test
     public void firefoxOldSchemeTest() {
         FirefoxOptions options = new FirefoxOptions();
@@ -77,16 +77,17 @@ public class LoginTest {
         WebDriver driver = new FirefoxDriver(options);
 
         driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
-        driver.navigate().to("http://localhost/litecart/en/");
+         driver.navigate().to("http://localhost/litecart/admin/login.php");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.findElement(By.name("email")).sendKeys("damian.kowalik94@gmail.com");
-        driver.findElement(By.name("password")).sendKeys("damian");
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.quit();
-    }       */
+    }           */
   // C:\Program Files\Firefox Developer Edition
 
+    /*
     @Test
     public void firefoxNightlyTest() {
         FirefoxOptions options = new FirefoxOptions();
@@ -94,14 +95,14 @@ public class LoginTest {
         WebDriver driver = new FirefoxDriver(options);
 
         driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
-        driver.navigate().to("http://localhost/litecart/en/");
+        driver.navigate().to("http://localhost/litecart/admin/login.php");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.findElement(By.name("email")).sendKeys("damian.kowalik94@gmail.com");
-        driver.findElement(By.name("password")).sendKeys("damian");
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.quit();
-    }
+    }           */
 
 
 }
