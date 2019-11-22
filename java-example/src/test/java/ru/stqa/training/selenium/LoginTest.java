@@ -16,7 +16,6 @@ import java.util.concurrent.TimeUnit;
 public class LoginTest {
 
 
-
     @Test
     public void chromeTest() {
 
@@ -104,5 +103,5 @@ public class LoginTest {
         driver.quit();
     }           */
 
-
+  // $$("a span.name ")
 }
