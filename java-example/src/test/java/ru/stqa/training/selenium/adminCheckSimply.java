@@ -23,29 +23,28 @@ public class adminCheckSimply  {
     driver.findElement(By.name("password")).sendKeys("admin");
     driver.findElement(By.name("login")).click();
 
+// li#app-
+//*[@id="app-"]/a/span[2]
 
 
+    List <WebElement> menuElements =  driver.findElements(By.xpath("//*[@id=\"app-\"]/a/span[2]"));
+   for (int i=0; i < menuElements.size(); i++)
+   {
 
- WebElement appearance =  driver.findElement(By.xpath("//*/text()[normalize-space(.)='Appearence']/parent::*"));
-  appearance.click();
-   driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-    driver.findElement(By.xpath("//li[@id='doc-logotype']/a/span")).click();
-    driver.findElement(By.xpath("//*/text()[normalize-space(.)='Catalog']/parent::*")).click();
-    driver.findElement(By.xpath("//*/text()[normalize-space(.)='Product Groups']/parent::*")).click();
+      menuElements.get(i).click();
 
-    driver.findElement(By.xpath("//*/text()[normalize-space(.)='Option Groups']/parent::*")).click();
 
-    driver.findElement(By.xpath("//*/text()[normalize-space(.)='Manufacturers']/parent::*")).click();
-    driver.findElement(By.xpath("//*/text()[normalize-space(.)='Suppliers']/parent::*")).click();
-    driver.findElement(By.xpath("//*/text()[normalize-space(.)='Delivery Statuses']/parent::*")).click();
-    driver.findElement(By.xpath("//*/text()[normalize-space(.)='Sold Out Statuses']/parent::*")).click();
+     if (menuElements.get(i).isSelected())
+     {
+       List <WebElement> submenuElements = driver.findElements(By.xpath("//*[@id=\"app-\"]/ul/li"));
+       for (int j=0; j < submenuElements.size(); j++)
+       {
+         submenuElements.get(j).click();
+       }
+     }
 
-    driver.findElement(By.xpath("//*/text()[normalize-space(.)='Quantity Units']/parent::*")).click();
-    driver.findElement(By.xpath("//*/text()[normalize-space(.)='CSV Import/Export']/parent::*")).click();
-    driver.findElement(By.xpath("//*/text()[normalize-space(.)='Countries']/parent::*")).click();
-    driver.findElement(By.xpath("//*/text()[normalize-space(.)='Currencies']/parent::*")).click();
+   }
      driver.quit();
-
   }
 
 
