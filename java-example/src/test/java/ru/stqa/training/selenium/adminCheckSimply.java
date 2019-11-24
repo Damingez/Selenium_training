@@ -30,13 +30,13 @@ public class adminCheckSimply  {
     List <WebElement> menuElements =  driver.findElements(By.xpath("//*[@id=\"app-\"]/a/span[2]"));
    for (int i=0; i < menuElements.size(); i++)
    {
-
+     menuElements =  driver.findElements(By.xpath("//*[@id=\"app-\"]/a/span[2]"));
       menuElements.get(i).click();
 
-
-     if (menuElements.get(i).isSelected())
+     List <WebElement> submenuElements = driver.findElements(By.xpath("//*[@id=\"app-\"]/ul/li"));
+     if (submenuElements.size() > 0)
      {
-       List <WebElement> submenuElements = driver.findElements(By.xpath("//*[@id=\"app-\"]/ul/li"));
+
        for (int j=0; j < submenuElements.size(); j++)
        {
          submenuElements.get(j).click();
