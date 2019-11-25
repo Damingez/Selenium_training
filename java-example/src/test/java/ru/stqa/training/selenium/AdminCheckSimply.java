@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class adminCheckSimply  {
+public class AdminCheckSimply {
 
   @Test
   public void testAdminMenu()
