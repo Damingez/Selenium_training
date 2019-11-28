@@ -8,15 +8,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class AdminCheckSimply {
+public class AdminCheckSimply extends TestBase {
 
   @Test
   public void testAdminMenu()
   {
-    WebDriver driver = new ChromeDriver();
 
     driver.navigate().to("http://localhost/litecart/admin/login.php");
     driver.findElement(By.name("username")).sendKeys("admin");
@@ -43,11 +41,10 @@ public class AdminCheckSimply {
        }
      }
 
-     //*[@id="content"]/h1/text()
 
 
    }
-     driver.quit();
+
   }
 
 
