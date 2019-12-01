@@ -41,8 +41,6 @@ public class AdminCheckSimply extends TestBase {
        }
      }
 
-
-
    }
 
   }

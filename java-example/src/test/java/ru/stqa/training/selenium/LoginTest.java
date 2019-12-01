@@ -12,7 +12,6 @@ public class LoginTest extends TestBase {
     @Test
     public void chromeTest() {
 
-
         driver.navigate().to("http://localhost/litecart/admin/login.php");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.findElement(By.name("username")).sendKeys("admin");
