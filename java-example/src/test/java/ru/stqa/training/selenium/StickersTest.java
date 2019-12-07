@@ -9,7 +9,7 @@ import java.util.List;
 public class StickersTest extends TestBase{
 
   @Test
-
+    // need to be fixed
   public void stickersNumberTest ()
   {
     driver.navigate().to("http://localhost/litecart/");
