@@ -17,8 +17,10 @@ public class StickersTest extends TestBase{
     List <WebElement> stickers = driver.findElements(By.cssSelector("div.sticker"));
     List <WebElement> stickersNew = driver.findElements(By.cssSelector("div[title=New]"));
     List <WebElement> stickersSale = driver.findElements(By.cssSelector("div[title=\"On Sale\"]"));
+    // div.sticker
+    // li.product
 
-      int numberOfStickers= stickers.size();
+      int numberOfStickers = stickers.size();
     assert numberOfStickers == stickersNew.size() + stickersSale.size();
 
 
