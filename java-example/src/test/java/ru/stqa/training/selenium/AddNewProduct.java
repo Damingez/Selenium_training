@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.io.File;
 import java.util.List;
 
 public class AddNewProduct extends TestBase{
@@ -45,8 +46,10 @@ public class AddNewProduct extends TestBase{
   quantity.sendKeys(qty);
 
   // upload of the file
+    File directory = new File("./src/test/resources/automatyzacja.txt");
+
   WebElement fileUpload = driver.findElement(By.cssSelector("div#tab-general input[name=\"new_images[]\"]"));
-  fileUpload.sendKeys("C:\\Users\\Damian\\Desktop\\nauka\\automatyzacja.txt");
+  fileUpload.sendKeys(directory.getAbsolutePath());
 
   // dates
  WebElement date1 = driver.findElement(By.cssSelector("div#tab-general input[name=date_valid_from]"));

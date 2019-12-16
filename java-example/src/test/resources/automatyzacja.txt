@@ -1,0 +1,38 @@
+
+Stack technologiczny
+
+Java 
+Selenium 
+Appium
+Jenkins 
+Docker 
+Maven 
+TestNG 
+Junit 
+Groovy 
+Katalon Studio 
+Postman 
+Enterprise architekt 
+HP ALM 
+Jira
+JMeter 
+SQL 
+UML 
+Scrum  
+
+
+
+
+komendy 
+
+C:\Users\Damian\Downloads\gradle-5.4.1\bin\gradle build
+
+C:\Users\Damian\Downloads\gradle-5.4.1\bin\gradle run
+
+gradlew build
+gradlew run
+
+
+
+Np obecnie aktualna wersja przeglądarki Firefox to 70
+Myślę że częściowo nie ma sansu wspominać o tym co było w wersji 40-47
