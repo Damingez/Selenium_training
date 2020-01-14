@@ -76,7 +76,6 @@ public class ProductTest extends TestBase {
     }
 
     return rgbNumbers;
-
   }
 
 }
