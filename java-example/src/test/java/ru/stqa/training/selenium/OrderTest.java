@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.Assert.assertTrue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 /* Część z problemów wynikała z tego że dwa razy dodaje się ten sam produkt
@@ -26,30 +27,35 @@ public class OrderTest extends TestBase {
     driver.findElement(By.name("password")).sendKeys("testy1234");
     driver.findElement(By.name("login")).click();
 
-    for (int i=0; i<3; i++)
-    {
-        List<WebElement> products = driver.findElements(By.cssSelector("div.content div.image-wrapper"));
-        // getting the first product available on the list
-        products.get(0).click();
+    int choosenProductAmount = 3;
 
-        // setting value for select list if such exists
+
+
+    for (int i=0; i<choosenProductAmount; i++)
+    {
+        // getting the first three product available on the list
+         // assertTrue(isElementPresent(driver, By.name("div.content div.image-wrapper")));
+      List <WebElement> products = driver.findElements(By.cssSelector("div.content div.image-wrapper"));
+
+      //products.get(i).click();
+       wait.until(elementToBeClickable(products.get(i))).click();
+
+
+        // setting value for select list if such exists in the product view
         String selectListLocator = "select[name=\"options[Size]\"]";
         if (isElementPresent(driver,By.cssSelector(selectListLocator)))
         {
           driver.findElement(By.cssSelector(selectListLocator)).click();
           driver.findElement(By.cssSelector("select[name=\"options[Size]\"] option[value=Small]")).click();
-
         }
 
-        // adding product to order
-      try {
-        driver.findElement(By.name("add_cart_product")).click(); // tutaj trzeba dać catch
-      } catch (Exception NoSuchElementException) {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        products.get(0).click();
-        driver.findElement(By.name("add_cart_product")).click();
+        // adding product to the cart
+      String addToCardButtonLocator = "add_cart_product";
 
-      }
+        assertTrue(isElementPresent(driver, By.name(addToCardButtonLocator)));
+        driver.findElement(By.name(addToCardButtonLocator)).click();
+
+
         // checking if basket is updated
          WebElement cartItem = driver.findElement(By.cssSelector("span.quantity"));
          int itemsExpectedNumber = i + 1;
@@ -60,25 +66,34 @@ public class OrderTest extends TestBase {
          // going back to home page
           driver.findElement(By.cssSelector("a[href=\"/litecart/\"]")).click();
     }
+      // getting the amount of products
+     String itemAmountAsString = driver.findElement(By.cssSelector("span.quantity")).getAttribute("textContent");
+
     // navigting to cart view
-
      driver.findElement(By.cssSelector("div#cart")).click();
-    int itemAmount = 3;
+    int itemAmount = Integer.parseInt(itemAmountAsString) ;
 
-    for (int i=0; i<3; i++)
+    for (int i=0; i<itemAmount; i++)
     {
 
       // checking the value of the table
         wait.until(numberOfElementsToBe(By.cssSelector("td.item"), itemAmount--));
 
         wait.until(visibilityOfElementLocated(By.cssSelector("button[name=remove_cart_item]"))).click();
-
     }
   }
 
   public static boolean isElementPresent(WebDriver driver, By locator)
   {
-        return driver.findElements(locator).size() > 0;
+    try {
+       driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+     int elementsNumber = driver.findElements(locator).size();
+      System.out.println(elementsNumber);
+       return  elementsNumber > 0;
+    } finally {
+      driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
+    }
+
   }
 
 }
