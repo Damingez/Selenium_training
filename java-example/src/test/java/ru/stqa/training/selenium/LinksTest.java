@@ -22,13 +22,15 @@ public class LinksTest extends TestBase{
 
     driver.navigate().to("http://localhost/litecart/admin/?app=countries&doc=countries");
 
-    driver.findElement(By.cssSelector("tr.row td:nth-child(5) a")).click();
 
+    driver.findElement(By.cssSelector("tr.row td:nth-child(5) a")).click();
+// extracting the arrow links to the list
    List<WebElement> links = driver.findElements(By.cssSelector("i.fa.fa-external-link"));
 
     Set<String> oldWindows = driver.getWindowHandles();
     String originalWindow = driver.getWindowHandle();
    links.get(0).click();
+      wait.until(numberOfWindowsToBe( 2));
     Set<String> currentWindows = driver.getWindowHandles();
 
     String newWindow = thereIsWindowOtherThan(oldWindows, currentWindows);
@@ -38,7 +40,7 @@ public class LinksTest extends TestBase{
     System.out.println(driver.getWindowHandle());
    links.get(1).click();
     wait.until(numberOfWindowsToBe( 3));
-   // driver.switchTo().window(newWindow);
+
      oldWindows = driver.getWindowHandles();
     System.out.println(oldWindows);
 
