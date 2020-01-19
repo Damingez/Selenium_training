@@ -27,30 +27,33 @@ public class LinksTest extends TestBase{
 // extracting the arrow links to the list
    List<WebElement> links = driver.findElements(By.cssSelector("i.fa.fa-external-link"));
 
-    Set<String> oldWindows = driver.getWindowHandles();
+
     String originalWindow = driver.getWindowHandle();
-   links.get(0).click();
-      wait.until(numberOfWindowsToBe( 2));
-    Set<String> currentWindows = driver.getWindowHandles();
 
-    String newWindow = thereIsWindowOtherThan(oldWindows, currentWindows);
-    originalWindow = driver.getWindowHandle();
-    driver.switchTo().window(newWindow);
+    //  action of opening new window and closing it
+    for (int i=0; i<links.size(); i++)
+    {
+      Set<String> oldWindows = driver.getWindowHandles();
+       links.get(i).click();
+          wait.until(numberOfWindowsToBe( 2));
+        Set<String> currentWindows = driver.getWindowHandles();
 
-    System.out.println(driver.getWindowHandle());
-   links.get(1).click();
-    wait.until(numberOfWindowsToBe( 3));
+        String newWindow = thereIsWindowOtherThan(oldWindows, currentWindows);
 
-     oldWindows = driver.getWindowHandles();
-    System.out.println(oldWindows);
+        driver.switchTo().window(newWindow);
+        driver.close();
+        driver.switchTo().window(originalWindow);
+    }
+        driver.close();
 
   }
 
   private String thereIsWindowOtherThan(Set<String> oldWindows,Set<String> currentWindows) {
 
   currentWindows.removeAll(oldWindows);
-    String newPageId = String.valueOf(currentWindows);
-    return newPageId;
+    String malformed_newPageId = String.valueOf(currentWindows);
+  String newPageId =  malformed_newPageId.replace("[","").replace("]","");
+  return newPageId;
   }
 
 }

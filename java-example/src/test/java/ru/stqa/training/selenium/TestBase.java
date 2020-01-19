@@ -20,7 +20,7 @@ public class TestBase {
       wait = new WebDriverWait(driver, 10);
       return;
     }
-  //   driver = new FirefoxDriver();
+   // driver = new FirefoxDriver();
     driver = new ChromeDriver();
     tlDriver.set(driver);
     wait = new WebDriverWait(driver, 10);
