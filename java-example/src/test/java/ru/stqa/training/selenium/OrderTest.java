@@ -29,17 +29,17 @@ public class OrderTest extends TestBase {
 
     int choosenProductAmount = 3;
 
-
-
     for (int i=0; i<choosenProductAmount; i++)
     {
-        // getting the first three product available on the list
-         // assertTrue(isElementPresent(driver, By.name("div.content div.image-wrapper")));
+
       List <WebElement> products = driver.findElements(By.cssSelector("div.content div.image-wrapper"));
 
       //products.get(i).click();
        wait.until(elementToBeClickable(products.get(i))).click();
 
+
+      String addToCardButtonLocator = "add_cart_product";
+      assertTrue(isElementPresent(driver, By.name(addToCardButtonLocator)));
 
         // setting value for select list if such exists in the product view
         String selectListLocator = "select[name=\"options[Size]\"]";
@@ -49,10 +49,7 @@ public class OrderTest extends TestBase {
           driver.findElement(By.cssSelector("select[name=\"options[Size]\"] option[value=Small]")).click();
         }
 
-        // adding product to the cart
-      String addToCardButtonLocator = "add_cart_product";
-
-        assertTrue(isElementPresent(driver, By.name(addToCardButtonLocator)));
+      // adding product to the cart
         driver.findElement(By.name(addToCardButtonLocator)).click();
 
 
@@ -78,7 +75,6 @@ public class OrderTest extends TestBase {
 
       // checking the value of the table
         wait.until(numberOfElementsToBe(By.cssSelector("td.item"), itemAmount--));
-
         wait.until(visibilityOfElementLocated(By.cssSelector("button[name=remove_cart_item]"))).click();
     }
   }
@@ -88,7 +84,7 @@ public class OrderTest extends TestBase {
     try {
        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
      int elementsNumber = driver.findElements(locator).size();
-      System.out.println(elementsNumber);
+
        return  elementsNumber > 0;
     } finally {
       driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
