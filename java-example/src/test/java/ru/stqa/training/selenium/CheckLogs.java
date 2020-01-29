@@ -10,7 +10,7 @@ public class CheckLogs extends TestBase {
   @Test
   public void checkLogsOccurence()
   {
-
+    proxy.newHar();
     driver.navigate().to("https://www.wp.pl/");
 
     for (LogEntry l : driver.manage().logs().get("driver").getAll()) {

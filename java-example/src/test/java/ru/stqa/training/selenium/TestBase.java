@@ -23,6 +23,7 @@ public class TestBase {
   public static ThreadLocal<EventFiringWebDriver> tlDriver = new ThreadLocal<>();
   public EventFiringWebDriver driver;
   public WebDriverWait wait;
+  public Proxy proxy;
 
   public static class MyListener extends AbstractWebDriverEventListener {
     @Override
@@ -58,12 +59,13 @@ public class TestBase {
     }
    // driver = new EventFiringWebDriver ( new FirefoxDriver());
 
-    DesiredCapabilities cap = DesiredCapabilities.chrome();
-    LoggingPreferences logPrefs = new LoggingPreferences();
-    logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
-    cap.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+    Proxy proxy = new Proxy();
+    proxy.setHttpProxy("localhost:8888");
+    DesiredCapabilities caps = new DesiredCapabilities();
+    caps.setCapability("proxy", proxy);
+  //  WebDriver driver = new ChromeDriver(caps);
 
-    driver = new EventFiringWebDriver(new ChromeDriver(cap));
+    driver = new EventFiringWebDriver(new ChromeDriver(caps));
     driver.register(new MyListener());
     tlDriver.set(driver);
     wait = new WebDriverWait(driver, 10);
