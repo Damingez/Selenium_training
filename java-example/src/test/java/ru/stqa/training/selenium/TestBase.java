@@ -2,28 +2,23 @@ package ru.stqa.training.selenium;
 
 import org.junit.After;
 import org.junit.Before;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Proxy;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.logging.LogType;
-import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.logging.Level;
-
 public class TestBase {
 
   public static ThreadLocal<EventFiringWebDriver> tlDriver = new ThreadLocal<>();
   public EventFiringWebDriver driver;
   public WebDriverWait wait;
-  public Proxy proxy;
+
 
   public static class MyListener extends AbstractWebDriverEventListener {
     @Override
@@ -59,13 +54,19 @@ public class TestBase {
     }
    // driver = new EventFiringWebDriver ( new FirefoxDriver());
 
-    Proxy proxy = new Proxy();
-    proxy.setHttpProxy("localhost:8888");
-    DesiredCapabilities caps = new DesiredCapabilities();
-    caps.setCapability("proxy", proxy);
-  //  WebDriver driver = new ChromeDriver(caps);
+    // start the proxy
+    BrowserMobProxy proxy = new BrowserMobProxyServer();
+    proxy.start(0);
 
-    driver = new EventFiringWebDriver(new ChromeDriver(caps));
+    // get the Selenium proxy object
+    Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
+
+    // configure it as a desired capability
+    DesiredCapabilities capabilities = new DesiredCapabilities();
+    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+
+
+    driver = new EventFiringWebDriver(new ChromeDriver());
     driver.register(new MyListener());
     tlDriver.set(driver);
     wait = new WebDriverWait(driver, 10);
