@@ -1,5 +1,8 @@
 package ru.stqa.training.selenium;
 
+import net.lightbody.bmp.BrowserMobProxy;
+import net.lightbody.bmp.BrowserMobProxyServer;
+import net.lightbody.bmp.client.ClientUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.By;
@@ -18,7 +21,7 @@ public class TestBase {
   public static ThreadLocal<EventFiringWebDriver> tlDriver = new ThreadLocal<>();
   public EventFiringWebDriver driver;
   public WebDriverWait wait;
-
+  public BrowserMobProxy proxy;
 
   public static class MyListener extends AbstractWebDriverEventListener {
     @Override
@@ -55,16 +58,17 @@ public class TestBase {
    // driver = new EventFiringWebDriver ( new FirefoxDriver());
 
     // start the proxy
-    BrowserMobProxy proxy = new BrowserMobProxyServer();
+    proxy = new BrowserMobProxyServer();
     proxy.start(0);
 
     // get the Selenium proxy object
     Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
-
+    
     // configure it as a desired capability
     DesiredCapabilities capabilities = new DesiredCapabilities();
+    Proxy proxy = new Proxy();
+    proxy.setHttpProxy("localhost:8888");
     capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
-
 
     driver = new EventFiringWebDriver(new ChromeDriver());
     driver.register(new MyListener());
