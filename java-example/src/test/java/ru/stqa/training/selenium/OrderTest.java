@@ -20,56 +20,25 @@ public class OrderTest extends TestBase {
   @Test
   public void checkOrder()
   {
-    driver.navigate().to("http://localhost/litecart/");
 
-    // login action
-    driver.findElement(By.name("email")).sendKeys("user1576266011131@domain.com");
-    driver.findElement(By.name("password")).sendKeys("testy1234");
-    driver.findElement(By.name("login")).click();
+    LoginUser("user1576266011131@domain.com","testy1234");
 
     int choosenProductAmount = 3;
-
     for (int i=0; i<choosenProductAmount; i++)
     {
-
-      List <WebElement> products = driver.findElements(By.cssSelector("div.content div.image-wrapper"));
-
-      //products.get(i).click();
-       wait.until(elementToBeClickable(products.get(i))).click();
-
-
-      String addToCardButtonLocator = "add_cart_product";
-      assertTrue(isElementPresent(driver, By.name(addToCardButtonLocator)));
-
-        // setting value for select list if such exists in the product view
-        String selectListLocator = "select[name=\"options[Size]\"]";
-        if (isElementPresent(driver,By.cssSelector(selectListLocator)))
-        {
-          driver.findElement(By.cssSelector(selectListLocator)).click();
-          driver.findElement(By.cssSelector("select[name=\"options[Size]\"] option[value=Small]")).click();
-        }
-
-      // adding product to the cart
-        driver.findElement(By.name(addToCardButtonLocator)).click();
-
-
-        // checking if basket is updated
-         WebElement cartItem = driver.findElement(By.cssSelector("span.quantity"));
-         int itemsExpectedNumber = i + 1;
-         String itemsExpectedNumberAsString = Integer.toString(itemsExpectedNumber);
-
-          wait.until(attributeContains(cartItem,"textContent" , itemsExpectedNumberAsString));
-
-         // going back to home page
-          driver.findElement(By.cssSelector("a[href=\"/litecart/\"]")).click();
+      goToProductView(i);
+      chooseProductSizeWhenPossible();
+      addProductToTheCart();
+      checkIfNumOfProductsIsUpdated(i);
+      goToHomePage();
     }
-      // getting the amount of products
-     String itemAmountAsString = driver.findElement(By.cssSelector("span.quantity")).getAttribute("textContent");
+    int itemAmount = getNumOfProductsFromHomePage();
 
-    // navigting to cart view
-     driver.findElement(By.cssSelector("div#cart")).click();
-    int itemAmount = Integer.parseInt(itemAmountAsString) ;
+    goToCartView();
+    removeProductsFromTheCart(itemAmount);
+  }
 
+  public void removeProductsFromTheCart(int itemAmount) {
     for (int i=0; i<itemAmount; i++)
     {
 
@@ -77,6 +46,55 @@ public class OrderTest extends TestBase {
         wait.until(numberOfElementsToBe(By.cssSelector("td.item"), itemAmount--));
         wait.until(visibilityOfElementLocated(By.cssSelector("button[name=remove_cart_item]"))).click();
     }
+  }
+
+  public void goToCartView() {
+    driver.navigate().to("http://localhost/litecart/en/checkout");
+  }
+
+  public int getNumOfProductsFromHomePage() {
+    String itemAmountAsString =  driver.findElement(By.cssSelector("span.quantity")).getAttribute("textContent");
+    int itemAmount = Integer.parseInt(itemAmountAsString);
+    return itemAmount;
+  }
+
+  public void goToHomePage() {
+    driver.findElement(By.cssSelector("a[href=\"/litecart/\"]")).click();
+  }
+
+  public void checkIfNumOfProductsIsUpdated(int i) {
+    WebElement cartItem = driver.findElement(By.cssSelector("span.quantity"));
+    int itemsExpectedNumber = i + 1;
+    String itemsExpectedNumberAsString = Integer.toString(itemsExpectedNumber);
+
+    wait.until(attributeContains(cartItem,"textContent" , itemsExpectedNumberAsString));
+  }
+
+  public void addProductToTheCart() {
+    String addToCardButtonLocator = "add_cart_product";
+    assertTrue(isElementPresent(driver, By.name(addToCardButtonLocator)));
+    driver.findElement(By.name(addToCardButtonLocator)).click();
+  }
+
+  public void chooseProductSizeWhenPossible() {
+    String selectListLocator = "select[name=\"options[Size]\"]";
+    if (isElementPresent(driver, By.cssSelector(selectListLocator)))
+    {
+      driver.findElement(By.cssSelector(selectListLocator)).click();
+      driver.findElement(By.cssSelector("select[name=\"options[Size]\"] option[value=Small]")).click();
+    }
+  }
+
+  public void goToProductView(int i) {
+    List<WebElement> products = driver.findElements(By.cssSelector("div.content div.image-wrapper"));
+    wait.until(elementToBeClickable(products.get(i))).click();
+  }
+
+  public void LoginUser(String email, String password) {
+    driver.navigate().to("http://localhost/litecart/");
+    driver.findElement(By.name("email")).sendKeys(email);
+    driver.findElement(By.name("password")).sendKeys(password);
+    driver.findElement(By.name("login")).click();
   }
 
   public static boolean isElementPresent(WebDriver driver, By locator)
