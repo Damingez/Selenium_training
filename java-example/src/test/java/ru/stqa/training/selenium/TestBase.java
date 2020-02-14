@@ -1,40 +1,23 @@
 package ru.stqa.training.selenium;
 
-import org.junit.After;
 import org.junit.Before;
-import org.openqa.selenium.HasCapabilities;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 
 public class TestBase {
 
-  public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
-  public WebDriver driver;
-  public WebDriverWait wait;
+  public static ThreadLocal<Applicatione> tlApp = new ThreadLocal<>();
+  public Applicatione app;
 
   @Before
   public void start() {
-    if (tlDriver.get() != null) {
-      driver = tlDriver.get();
-      wait = new WebDriverWait(driver, 10);
+    if (tlApp.get() != null) {
+      app = tlApp.get();
       return;
     }
-    driver = new FirefoxDriver();
-   // driver = new ChromeDriver();
-    tlDriver.set(driver);
-    System.out.println(((HasCapabilities) driver).getCapabilities());
-    wait = new WebDriverWait(driver, 10);
 
- //   Runtime.getRuntime().addShutdownHook(
- //           new Thread(() -> { driver.quit(); driver = null; }));
+    app = new Applicatione();
+    tlApp.set(app);
+ //   System.out.println(((HasCapabilities) driver).getCapabilities());
+
   }
 
-  @After
-  public void stop() {
-    driver.quit();
-    driver = null;
-  }
 }
