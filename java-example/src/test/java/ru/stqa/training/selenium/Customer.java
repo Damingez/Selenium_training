@@ -6,7 +6,7 @@ public class Customer {
 
   public static Builder newEntity() { return new Customer().new Builder(); }
 
-  public String getName() {
+  public String getEmail() {
     return name;
   }
 
@@ -16,7 +16,7 @@ public class Customer {
 
     public class Builder {
       private Builder() {}
-      public Builder withName(String name) { Customer.this.name = name; return this; }
+      public Builder withEmail(String name) { Customer.this.name = name; return this; }
       public Builder withPassword(String password) { Customer.this.password = password; return this; }
       public Customer build() {return Customer.this; }
   }

@@ -17,20 +17,12 @@ public class OrderTest extends TestBase {
   @UseDataProvider(value = "validCustomers", location = DataProviders.class)
   public void checkOrder(Customer customer) {
 
-   app.LoginUser(customer.getName(),customer.getPassword());
-
     int choosenProductAmount = 3;
-    for (int i = 0; i < choosenProductAmount; i++) {
-      app.goToProductView(i);
-      app.chooseProductSizeWhenPossible();
-      app.addProductToTheCart();
-      app.checkIfNumOfProductsIsUpdated(i);
-      app.goToHomePage();
-    }
-    int itemAmount = app.getNumOfProductsFromHomePage();
-    Assert.assertEquals(3, itemAmount);
-    app.goToCartView();
-    app.removeProductsFromTheCart(itemAmount);
+    app.loginCustomer(customer.getEmail(),customer.getPassword());
+    app.addRandomProductsToCart(choosenProductAmount);
+    int itemAmount = app.getNumberOfCurrentlyOrderedProducts();
+    Assert.assertEquals(choosenProductAmount, itemAmount);
+    app.removeProducts(itemAmount);
 
   }
 
